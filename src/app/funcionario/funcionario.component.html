@@ -1,0 +1,142 @@
+<link rel="stylesheet" type="text/css" class=".../styles.css">
+<div _ngcontent-c2="" class="col-lg-12">
+	<section _ngcontent-c2="" class="box ">
+		<header _ngcontent-c2="" class="panel_header">
+			<h4 _ngcontent-c2="" class="title pull-left title1">Funcionário</h4>
+			<button *ngIf="hasRole('FUNCIONARIO_CRIAR') || hasRole('ADMIN')" class="btn btn-primary botao"
+				(click)="novo()">Criar novo</button>
+
+			<p-table [value]="funcionarios"  [paginator]="true" [rows]="10">
+				<ng-template pTemplate="header">
+					<tr>
+						<th class="ids">ID</th>
+						<th>Nome</th>
+						<th>Apelido</th>
+						<th class="acoes">Ações</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-funcionario>
+					<tr>
+						<td>{{funcionario.id}}</td>
+						<td>{{funcionario.nome}}</td>
+						<td>{{funcionario.apelido}}</td>
+
+						<td>
+							<button *ngIf="hasRole('FUNCIONARIO_EDITAR') || hasRole('ADMIN')" class="btn btn-primary"
+								(click)="editar(funcionario)">
+								<i class="fa fa-edit"></i>
+							</button>
+							<button *ngIf="hasRole('FUNCIONARIO_REMOVER') || hasRole('ADMIN')" class="btn btn-danger"
+								(click)="confirmDelete(funcionario)">
+								<i class="fa fa-trash"></i>
+							</button>
+						</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</header>
+		<div _ngcontent-c2="" class="content-body"></div>
+	</section>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
+<p-growl [(value)]="msgs"></p-growl>
+
+<p-dialog header="Cadastro de Funcionarios" [(visible)]="showDialog" modal="modal" [responsive]="true" [width]="1000">
+
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="col-sm-2">
+				<label for="matricula">Matricula</label>
+				<input type="text" id="matricula" name="matricula" class="form-control"
+					[(ngModel)]="funcionarioEdit.matricula">
+			</div>
+			<div class="col-sm-4">
+				<label for="admissao">Data Admissao: </label>
+				<input type="date" id="admissao" name="admissao" class="form-control"
+					[(ngModel)]="funcionarioEdit.admissao">
+			</div>
+			<div class="col-sm-4">
+				<h5 class="first"></h5>
+				<div class="ui-g" style="width:250px;margin-bottom:10px">
+					<p-checkbox name="ativo" [(ngModel)]="funcionarioEdit.ativo" label="Ativo" binary="true">
+					</p-checkbox>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="col-sm-6">
+				<label for="nome">Nome</label>
+				<input type="text" id="nome" name="nome" class="form-control" [(ngModel)]="funcionarioEdit.nome">
+			</div>
+			<div class="col-sm-6">
+				<label for="apelido">Apelido</label>
+				<input type="text" id="apelido" name="apelido" class="form-control"
+					[(ngModel)]="funcionarioEdit.apelido">
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="col-sm-6">
+				<label for="cpf_cnpj">CPF</label><br>
+				<p-inputMask mask="999.999.999-99" id="cpf_cnpj" name="cpf_cnpj" placeholder="999.999.999-99"
+					[(ngModel)]="funcionarioEdit.cpf_cnpj">
+				</p-inputMask><br>
+			</div>
+			<div class="col-sm-6">
+				<label for="telefone">Telefone</label><br>
+				<p-inputMask mask="(99)99999-9999" id="telefone" name="telefone" placeholder="(99)99999-9999"
+					[(ngModel)]="funcionarioEdit.telefone">
+				</p-inputMask><br>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="col-sm-6">
+				<label for="cidade">Cidade</label>
+				<p-dropdown name="cidade" [options]="cidades" placeholder="Selecione uma cidade"
+					(onChange)="buscaBairros(funcionarioEdit.bairro.cidade)" required
+					[(ngModel)]="funcionarioEdit.bairro.cidade" optionLabel="nome" [autoDisplayFirst]="false">
+				</p-dropdown>
+			</div>
+			<div class="col-sm-6">
+				<label for="bairro">Bairro</label>
+				<p-dropdown name="bairro" id="bairro" [options]="bairros" placeholder="Selecione um bairro"
+					[(ngModel)]="funcionarioEdit.bairro" required [ngModelOptions]="{standalone: true}"
+					optionLabel="nome" [autoDisplayFirst]="false">
+				</p-dropdown>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="col-sm-6">
+				<label for="endereco">Endereco</label>
+				<input type="text" id="endereco" name="endereco" class="form-control"
+					[(ngModel)]="funcionarioEdit.endereco">
+
+			</div>
+			<div class="col-sm-6">
+				<label for="email">E-mail</label>
+				<input type="email" id="email" name="email" class="form-control" placeholder="email@email.com"
+					[(ngModel)]="funcionarioEdit.email">
+			</div>
+		</div>
+	</div>
+	<p-footer>
+
+		<button type="button" class="btn btn-default" (click)="showDialog = false">Cancelar</button>
+		<button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
+	</p-footer>
+</p-dialog>

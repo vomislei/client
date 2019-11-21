@@ -1,0 +1,233 @@
+<link rel="stylesheet" type="text/css" class=".../styles.css">
+<div _ngcontent-c2="" class="col-lg-12">
+  <section _ngcontent-c2="" class="box ">
+    <header _ngcontent-c2="" class="panel_header">
+      <h4 _ngcontent-c2="" class="title pull-left title1">Perfil</h4>
+      <button *ngIf="hasRole('ADMIN')" class="btn btn-primary botao" (click)="novo()">Criar novo</button>
+
+      <p-table [value]="perfils"  [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="ids">ID</th>
+            <th>Nome</th>
+            <th class="acoes">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-perfil>
+          <tr>
+            <td>{{perfil.id}}</td>
+            <td>{{perfil.nome}}</td>
+            <td>
+              <button *ngIf="hasRole('ADMIN')" class="btn btn-primary" 
+                (click)="editar(perfil)">
+                <i class="fa fa-edit"></i>
+              </button>
+
+              <button *ngIf="hasRole('ADMIN')" class="btn btn-danger" 
+                (click)="confirmDelete(perfil)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </header>
+    <div _ngcontent-c2="" class="content-body">
+    </div>
+  </section>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
+
+<p-growl [(value)]="msgs"></p-growl>
+
+
+<p-dialog header="Cadastro Perfil de Permissões" [(visible)]="showDialog" modal="modal" [responsive]="true" [width]="500">
+
+  <div class="row">
+
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" class="form-control" [(ngModel)]="perfilEdit.nome" required>
+
+        <h5>Permissões</h5>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-8">
+            <p-checkbox name="admin" value="ADMIN" label="Usuario ADMIN" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Usuario:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="usuario" value="USUARIO_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="usuario" value="USUARIO_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="usuario" value="USUARIO_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Perfil:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="perfil" value="PERFIL_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="perfil" value="PERFIL_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="perfil" value="PERFIL_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Funcionario:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="funcionario" value="FUNCIONARIO_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="funcionario" value="FUNCIONARIO_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="funcionario" value="FUNCIONARIO_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Bairro:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="bairro" value="BAIRRO_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="funcionario" value="BAIRRO_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="funcionario" value="BAIRRO_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Cidade:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="cidade" value="CIDADE_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="funcionario" value="CIDADE_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="funcionario" value="CIDADE_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Cliente:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="cliente" value="CLIENTE_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="cliente" value="CLIENTE_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="cliente" value="CLIENTE_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Contas a Pagar:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="contasapagar" value="CONTASAPAGAR_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="contasapagar" value="CONTASAPAGAR_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="contasapagar" value="CONTASAPAGAR_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Contas a Receber:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="contasareceber" value="CONTASARECEBER_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="contasareceber" value="CONTASARECEBER_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="contasareceber" value="CONTASARECEBER_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Imovel:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="imovel" value="IMOVEL_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="imovel" value="IMOVEL_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="imovel" value="IMOVEL_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+        <label>Negociacão:</label>
+        <div class="ui-g" style="width:300px;margin-bottom:10px">
+          <div class="ui-g-4">
+            <p-checkbox name="negociacao" value="NEGOCIACAO_CRIAR" label="Criar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="negociacao" value="NEGOCIACAO_EDITAR" label="Editar" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+          <div class="ui-g-4">
+            <p-checkbox name="negociacao" value="NEGOCIACAO_REMOVER" label="Remover" [(ngModel)]="perfilEdit.permissoes">
+            </p-checkbox>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <p-footer>
+
+    <button type="button" class="btn btn-default" (click)="cancelar()">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
+  </p-footer>
+</p-dialog>

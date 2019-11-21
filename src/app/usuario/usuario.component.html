@@ -1,0 +1,106 @@
+<link rel="stylesheet" type="text/css" class=".../styles.css">
+<div _ngcontent-c2="" class="col-lg-12">
+  <section _ngcontent-c2="" class="box ">
+    <header _ngcontent-c2="" class="panel_header">
+      <h4 _ngcontent-c2="" class="title pull-left" style=" margin-bottom:20px;">Usuário</h4>
+      <button  *ngIf="hasRole('USUARIO_CRIAR') || hasRole('ADMIN')"
+               class="btn btn-primary botao"  (click)="novo()">Criar novo</button>
+      <p-table [value]="usuarios"  [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="ids">ID</th> 
+            <th>Nome</th>
+            <th>Username</th>
+            <th class="acoes">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-usuario>
+          <tr>
+            <td>{{usuario.id}}</td>
+            <td>{{usuario.nome}}</td>
+            <td>{{usuario.username}}</td>
+            <td>
+              <button  *ngIf="hasRole('USUARIO_EDITAR') || hasRole('ADMIN')"
+                       class="btn btn-primary" (click)="editar(usuario)">
+                <i class="fa fa-edit"></i>
+              </button>
+                <button *ngIf="hasRole('USUARIO_REMOVER') || hasRole('ADMIN')"
+                        class="btn btn-danger" (click)="confirmDelete(usuario)">
+                  <i class="fa fa-trash"></i>
+                </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </header>
+    <div _ngcontent-c2="" class="content-body">
+    </div>
+  </section>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
+
+<p-growl [(value)]="msgs"></p-growl>
+
+<p-dialog header="Cadastro de Usuário"
+          [(visible)]="showDialog"
+          modal="modal"
+          [responsive]="true"
+          [width]="500">
+
+  <div class="row">
+
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text"
+               id="nome"
+               name="nome"
+               required="required"
+               class="form-control"
+               [(ngModel)]="usuarioEdit.nome"
+               required>
+
+        <label for="username">Login</label>
+        
+        <input type="text"
+               id="username"
+               name="username"
+               required="required"
+               class="form-control"
+               [(ngModel)]="usuarioEdit.username"
+               >
+
+
+        <label for="password">Senha</label>
+        <input type="password"
+               id="password"
+               name="password"
+               class="form-control"
+               [(ngModel)]="usuarioEdit.password"
+               required pPassword>
+
+
+        <h5 class="first">Ativo</h5>
+        <div class="ui-g" style="width:250px;margin-bottom:10px">
+          <div class="ui-g-4"><p-radioButton name="sim" [value]="true" label="Sim" [(ngModel)]="usuarioEdit.ativo"></p-radioButton></div>
+          <div class="ui-g-4"><p-radioButton name="nao" [value]="false" label="Não" [(ngModel)]="usuarioEdit.ativo"></p-radioButton></div>
+        </div>
+
+        <h5 class="first">Funcionario</h5>
+        <p-dropdown [options]="funcionarios" [(ngModel)]="usuarioEdit.funcionario" placeholder="Selecione um funcionario" optionLabel="nome" [showClear]="true"></p-dropdown>
+
+        <h5 class="first">Perfil</h5>
+        <p-dropdown [options]="perfils" [(ngModel)]="usuarioEdit.perfil" placeholder="Selecione um perfil" optionLabel="nome" [showClear]="true"></p-dropdown>
+
+      </div>
+    </div>
+  </div>
+
+
+  <p-footer>
+
+    <button type="button" class="btn btn-default" (click)="cancelar()">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
+  </p-footer>
+</p-dialog>

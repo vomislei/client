@@ -1,0 +1,159 @@
+<link rel="stylesheet" type="text/css" class=".../styles.css">
+<div _ngcontent-c2="" class="col-lg-12">
+  <section _ngcontent-c2="" class="box ">
+    <header _ngcontent-c2="" class="panel_header">
+      <h4 _ngcontent-c2="" class="title pull-left title1">Negociação</h4>
+      <button class="btn btn-primary botao" (click)="novo()">Criar novo</button>
+
+      <p-table [value]="negociacaos"  [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="ids">ID</th>
+            <th>Vendedor/Locador</th>
+            <th>Comprador/Locatário</th>
+            <th>Rua</th>
+            <th>Cidade</th>
+            <th class="acoes">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-negociacao>
+          <tr>
+            <td>{{negociacao?.id}}</td>
+            <td>{{negociacao?.imovel.cliente.nome}}</td>
+            <td>{{negociacao?.cliente.nome}}</td>
+            <td>{{negociacao?.imovel.rua}}</td>
+            <td>{{negociacao?.imovel.bairro.cidade.nome}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="editar(negociacao)">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="btn btn-danger" (click)="confirmDelete(negociacao)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+    </header>
+    <div _ngcontent-c2="" class="content-body">
+    </div>
+  </section>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
+<p-growl [(value)]="msgs"></p-growl>
+
+<p-dialog header="Cadastro de Negociação" [(visible)]="showDialog" modal="modal" [responsive]="true" [width]="900">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="clientes">Vendedor/Locador</label>
+          <p-dropdown name="clientes" [options]="clientes" (onChange)="buscaImoveis(negociacaoEdit.imovel.cliente)"
+            [(ngModel)]="negociacaoEdit.imovel.cliente" optionLabel="nome" [autoDisplayFirst]="false" placeholder="Selecione um vendedor/locador!">
+          </p-dropdown>
+        </div>
+      </div>
+
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="imovel">Imóvel</label>
+          <p-dropdown name="imovel" id="imovel" [options]="imovels" [(ngModel)]="negociacaoEdit.imovel"
+            optionLabel="rua" [autoDisplayFirst]="false" placeholder="Selecione um imóvel!">
+          </p-dropdown>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="clienteaux">Comprador/Locatário</label>
+          <p-dropdown name="clienteaux" id="clienteaux" [options]="clientesaux" [(ngModel)]="negociacaoEdit.cliente"
+            optionLabel="nome" [autoDisplayFirst]="false" placeholder="Selecione um comprador/locatário!">
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="col-sm-12">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="datainicio">Data Inicio:</label>
+          <input type="date" id="datainicio" name="datainicio" class="form-control"
+            [(ngModel)]="negociacaoEdit.datainicio">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="data">Data:</label>
+          <input type="date" id="data" name="data" class="form-control" [(ngModel)]="negociacaoEdit.data">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="datafim">Data Fim:</label>
+          <input type="date" id="datafim" name="datafim" class="form-control" [(ngModel)]="negociacaoEdit.datafim"
+            readonly>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-sm-12">
+      <div class="col-sm-6">
+        <label>Valor à Receber:</label>
+        <input type="number" id="vreceber" name="vreceber" class="form-control" [(ngModel)]="negociacaoEdit.vreceber">
+      </div>
+      <div class="col-sm-6">
+        <label>Valor à Pagar:</label>
+        <input type="number" id="vpagar" name="vpagar" class="form-control" [(ngModel)]="negociacaoEdit.vpagar">
+      </div>
+    </div>
+    <br>
+    <div class="col-sm-12">
+      <label class="col-sm-12" for="tiponegocio">Tipo Negócio:</label>
+      <div class="ui-g-4">
+        <p-radioButton [value]="true" label="Aluguel" [(ngModel)]="negociacaoEdit.tiponegocio"></p-radioButton>
+      </div>
+      <div class="ui-g-4">
+        <p-radioButton [value]="false" label="Venda" [(ngModel)]="negociacaoEdit.tiponegocio"></p-radioButton>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="funcionario">Funcionário</label>
+          <p-dropdown name="funcionario" id="funcionario" [options]="funcionarios"
+            [(ngModel)]="negociacaoEdit.funcionario" optionLabel="nome" [autoDisplayFirst]="false"placeholder="Selecione um funcionário!">
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--
+      </p-tabPanel>
+      <p-tabPanel header="Contas a pagar">
+        </p-tabPanel>
+
+    </p-tabView>
+-->
+
+
+  <p-footer>
+    <button type="button" class="btn btn-success" (click)="saveNegociacao()">Finalizar Negociação</button>
+    <button type="button" class="btn btn-default" (click)="cancelar()">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
+
+  </p-footer>
+
+</p-dialog>

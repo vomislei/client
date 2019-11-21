@@ -1,0 +1,202 @@
+<div *ngIf="isAuthenticated" class="page-topbar">
+  <div class="logo-area">
+  </div>
+  <div class="quick-area">
+    <div class="pull-left">
+      <ul class="info-menu left-links list-inline list-unstyled">
+        <li class="sidebar-toggle-wrap">
+          <a href="#" data-toggle="sidebar" class="sidebar_toggle">
+            <i class="fa fa-bars"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="pull-right">
+      <ul class="info-menu right-links list-inline list-unstyled">
+        <li class="profile">
+          <a href="#" data-toggle="dropdown" class="toggle">
+            <img src="assets/images/user.png" alt="user-image" class="img-circle img-inline">
+            <span>{{userInfo?.principal?.nome}} <i class="fa fa-angle-down"></i></span>
+          </a>
+          <ul class="dropdown-menu profile animated fadeIn">
+            <li>
+              <a href="#settings">
+                <i class="fa fa-wrench"></i>
+                Settings
+              </a>
+            </li>
+            <li>
+              <a href="#profile">
+                <i class="fa fa-user"></i>
+                Profile
+              </a>
+            </li>
+            <li class="last">
+              <a href="javascript:;" (click)="logout()">
+                <i class="fa fa-lock"></i>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+<!-- END TOPBAR -->
+<!-- START CONTAINER -->
+<div class="page-container row-fluid container-fluid">
+
+  <!-- SIDEBAR - START -->
+
+  <div *ngIf="isAuthenticated" class="page-sidebar pagescroll">
+
+    <!-- MAIN MENU - START -->
+    <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+      <div class="profile-info row">
+        <div class="profile-image col-xs-4">
+          <a href="#">
+            <img alt="" src="" class="img-responsive img-circle">
+          </a>
+        </div>
+
+        <div class="profile-details col-xs-8">
+          <h3>
+            <a href="#">{{userInfo?.principal?.nome}}</a>
+            <span class="profile-status online"></span>
+          </h3>
+          <p class="profile-title">{{userInfo?.principal?.email}}</p>
+        </div>
+      </div>
+
+
+      <ul class="wraplist">
+        <li class="menusection">Main</li>
+        <li>
+          <a routerLink="/">
+            <i class="fa fa-home"></i>
+            <span class="title">Home</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="javascript:;">
+            <i class="fa fa-bars"></i>
+            <span class="title">Administrativo</span>
+            <span class="arrow"></span>
+          </a>
+          <ul class="sub-menu">
+            <li
+              *ngIf="hasRole('USUARIO_CRIAR') || hasRole('USUARIO_EDITAR') || hasRole('USUARIO_REMOVER') || hasRole('ADMIN')">
+              <a routerLink="/usuario">
+                <i class="fa fa-users"></i>
+                <span class="title">Usuários</span>
+              </a>
+            </li>
+
+            <li
+              *ngIf="hasRole('PERFIL_CRIAR') || hasRole('PERFIL_EDITAR') || hasRole('PERFIL_REMOVER') || hasRole('ADMIN')">
+              <a routerLink="/perfil">
+                <i class="fa fa-lock"></i>
+                <span class="title">Perfil</span>
+              </a>
+            </li>
+
+
+            <li
+              *ngIf="hasRole('FUNCIONARIO_CRIAR') || hasRole('FUNCIONARIO_EDITAR') || hasRole('FUNCIONARIO_REMOVER') || hasRole('ADMIN')">
+              <a routerLink="/funcionario">
+                <i class="fa fa-user"></i>
+                <span class="title">Funcionario</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li *ngIf="hasRole('ADMIN')">
+          <a routerLink="/bairro">
+            <i class="fa fa-location-arrow"></i>
+            <span class="title">Bairro</span>
+          </a>
+        </li>
+
+        <li *ngIf="hasRole('ADMIN')">
+          <a routerLink="/cidade">
+            <i class="fa fa-globe"></i>
+            <span class="title">Cidade</span>
+          </a>
+        </li>
+
+        <li
+          *ngIf="hasRole('CLIENTE_CRIAR') || hasRole('CLIENTE_EDITAR') || hasRole('CLIENTE_REMOVER') || hasRole('ADMIN')">
+          <a routerLink="/cliente">
+            <i class="fa fa-money"></i>
+            <span class="title">Cliente</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="javascript:;">
+            <i class="fa fa-bars"></i>
+            <span class="title">Financeiro</span>
+            <span class="arrow"></span>
+          </a>
+          <ul class="sub-menu">
+            <li
+              *ngIf="hasRole('CONTAAPAGAR_CRIAR') || hasRole('CONTAAPAGAR_EDITAR') || hasRole('CONTAAPAGAR_REMOVER') || hasRole('ADMIN')">
+              <a routerLink="/contaapagar">
+                <i class="fa fa-money"></i>
+                <span class="title">Contas a Pagar</span>
+              </a>
+            </li>
+            <li
+              *ngIf="hasRole('CONTAARECEBER_CRIAR') || hasRole('CONTAARECEBER_EDITAR') || hasRole('CONTAARECEBER_REMOVER') || hasRole('ADMIN')">
+              <a routerLink="/contaareceber">
+                <i class="fa fa-money"></i>
+                <span class="title">Contas a Receber</span>
+              </a>
+            </li>
+          </ul>
+
+        </li>
+
+
+
+
+
+
+        <li *ngIf="hasRole('ADMIN')">
+          <a routerLink="/imovel">
+            <i class="fa fa-home"></i>
+            <span class="title">Imovel</span>
+          </a>
+        </li>
+
+        <li *ngIf="hasRole('ADMIN')">
+          <a routerLink="/negociacao">
+            <i class="fa fa-handshake-o"></i>
+            <span class="title">Negociacao</span>
+          </a>
+        </li>
+
+
+
+
+      </ul>
+    </div>
+    <!-- MAIN MENU - END -->
+
+  </div>
+  <!--  SIDEBAR - END -->
+  <!-- START CONTENT -->
+  <section id="main-content">
+    <section class="wrapper main-wrapper row">
+      <router-outlet></router-outlet>
+      <!-- MAIN CONTENT AREA ENDS -->
+    </section>
+  </section>
+  <!-- END CONTENT -->
+
+</div>
+<!-- END CONTAINER -->

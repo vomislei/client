@@ -1,0 +1,254 @@
+<link rel="stylesheet" type="text/css" class=".../styles.css">
+
+<div _ngcontent-c2="" class="col-lg-12">
+  <section _ngcontent-c2="" class="box ">
+    <header _ngcontent-c2="" class="panel_header">
+      <h4 _ngcontent-c2="" class="title pull-left title1">Imóveis</h4>
+      <button class="btn btn-primary botao" (click)="novo()">Criar novo</button>
+
+      <p-table [value]="imovels" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="ids">ID</th>
+            <th>Cliente</th>
+            <th>Rua</th>
+            <th>Cidade</th>
+            <th class="acoes">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-imovel>
+          <tr>
+            <td>{{imovel?.id}}</td>
+            <td>{{imovel?.cliente.nome}}</td>
+            <td>{{imovel?.rua}}</td>
+            <td>{{imovel?.bairro.cidade.nome}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="editar(imovel)">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="btn btn-danger" (click)="confirmDelete(imovel)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+    </header>
+    <div _ngcontent-c2="" class="content-body">
+    </div>
+  </section>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
+<p-growl [(value)]="msgs"></p-growl>
+
+<p-dialog header="Cadastro de Imóveis" [(visible)]="showDialog" modal="modal" [responsive]="true" [width]="1350">
+
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="col-sm-4">
+        <label for="cliente">Cliente</label>
+        <p-dropdown name="cliente" id="cliente" [options]="clientes" [(ngModel)]="imovelEdit.cliente"
+          placeholder="Selecione um cliente!" optionLabel="nome" [autoDisplayFirst]="false" required>
+        </p-dropdown>
+      </div>
+      <div class="col-sm-4">
+        <label for="cidade">Cidade</label>
+        <p-dropdown name="cidade" [options]="cidades" (onChange)="buscaBairros(imovelEdit.bairro.cidade)"
+          [(ngModel)]="imovelEdit.bairro.cidade" placeholder="Selecione uma cidade!" optionLabel="nome"
+          [autoDisplayFirst]="false" required>
+        </p-dropdown>
+      </div>
+      <div class="col-sm-4">
+        <label for="bairro">Bairro</label>
+        <p-dropdown name="bairro" id="bairro" [options]="bairros" [(ngModel)]="imovelEdit.bairro"
+          placeholder="Selecione um bairro!" [ngModelOptions]="{standalone: true}" optionLabel="nome"
+          [autoDisplayFirst]="false" required>
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div clas="row">
+    <div class="col-sm-6">
+      <label for="nome">Endereço:</label>
+      <input type="text" id="rua" name="rua" required=“required” class="form-control" [(ngModel)]="imovelEdit.rua">
+    </div>
+  </div>
+
+  <div clas="row">
+    <div class="col-sm-6">
+      <label for="cep">CEP</label><br>
+      <p-inputMask mask="99999999" id="cep" name="cep" placeholder="99999-999" [(ngModel)]="imovelEdit.cep">
+      </p-inputMask><br>
+      <br>
+    </div>
+  </div>
+
+  <div clas="row">
+    <div class="col-sm-6">
+      <label>Quartos:</label>
+      <input type="number" id="Quartos" name="quartos" min="1" max="100000" required=“required” class="form-control"
+        [(ngModel)]="imovelEdit.quartos">
+    </div>
+  </div>
+
+  <div clas="row">
+    <div class="col-sm-6">
+      <label>Vagas Garagem:</label>
+      <input type="number" id="vgaragem" name="vgaragem" min="1" max="100000" required=“required” class="form-control"
+        [(ngModel)]="imovelEdit.vgaragem">
+    </div>
+  </div>
+
+  <div clas="row">
+    <div class="col-sm-6">
+      <h5 class="first"></h5>
+      <div class="ui-g" style="width:250px;margin-bottom:10px">
+        <p-checkbox name="ativo" [(ngModel)]="imovelEdit.ativo" label="Ativo" binary="true">
+        </p-checkbox>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div clas="row">
+    <div class="col-sm-6">
+      <h5 class="first"></h5>
+      <div class="ui-g" style="width:250px;margin-bottom:10px">
+        <p-checkbox name="troca" [(ngModel)]="imovelEdit.troca" label="Aceita troca?" binary="true">
+        </p-checkbox>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <div clas="row">
+    <div class="col-sm-6">
+      <label>Venda</label>
+      <input type="checkbox" name="myChk" id="myChk" (change)="disableVenda()" [(ngModel)]="imovelEdit.venda" />
+      <input type="number" id="vvenda" name="vvenda" [step]="0.1" min="1" max="100000" required=“required”
+        class="form-control" placeholder="Valor Venda R$:" [disabled]="isDisabledVenda" [(ngModel)]="imovelEdit.vvenda">
+    </div>
+  </div>
+
+  <div clas="row">
+    <div class="col-sm-6">
+      <label>Locação</label>
+      <input type="checkbox" name="myChk" id="myChk" (change)="disableLocacao()" [(ngModel)]="imovelEdit.locacao" />
+      <input type="number" id="vlocacao" name="vlocacao" [step]="0.1" min="1" max="100000" required=“required”
+        class="form-control" placeholder="Valor Locação R$:" [disabled]="isDisabledLoca"
+        [(ngModel)]="imovelEdit.vlocacao">
+    </div>
+  </div>
+
+
+
+  <div clas="row">
+    <div class="col-sm-6">
+      <label for="nome">M² Terreno:* </label>
+      <input type="number" id="mterreno" name="mterreno" [step]="0.1" min="1" max="100000" required=“required”
+        class="form-control" [(ngModel)]="imovelEdit.mterreno">
+    </div>
+  </div>
+
+  <div clas="row">
+    <div class="col-sm-6">
+      <label for="nome">M² Imovel:* </label>
+      <input type="number" id="mimovel" name="mimovel" [step]="0.1" min="1" max="100000" required=“required”
+        class="form-control" [(ngModel)]="imovelEdit.mimovel">
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="col-md-6">
+      <div class="row">
+        <h4>Inserir imagens</h4>
+        <table class="table table-bordered">
+          <tr>
+            <td><input type="file" class="custom-file-input" file-model="file"></td>
+
+          </tr>
+          <tr>
+            <td><button ng-click="upload()">Upload</button></td>
+          </tr>
+        </table>
+      </div>
+      <div class="row">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Nome Arquivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="doc in docList">
+              <td><a href="/doc/"></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <!--
+  <h1>Roufid File upload tutorial</h1>
+
+  <div>
+    <input #fileInput type="file" ng2FileSelect [uploader]="uploader" />
+
+    <div class="drop-box" ng2FileDrop [ngClass]="{'dragover': isDropOver}" [uploader]="uploader"
+      (fileOver)="fileOverAnother($event)" (click)="fileClicked()">
+      <span class="drag-in-title">Import or drag file here</span>
+      <span class="drag-over-title">Drop the file</span>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+-->
+
+  <div _ngcontent-c2="" class="col-lg-12">
+
+    <section _ngcontent-c2="" class="box ">
+
+      <div #gmap style="width:95%;height:400px;margin: 10px"></div>
+      <button style="margin: 5px" (click)="setMapType('terrain')" class="btn btn-primary">Mapa terreste</button>
+      <button (click)="setMapType('satellite')" class="btn btn-danger">Mapa Satélite</button>
+      <button (click)="setMapType('roadmap')" class="btn btn-warning">Mapa de Rota</button>
+      <button [disabled]="isTracking" class="btn btn-primary" (click)="findMe()">Localização Atual</button>
+      <div class="form-group">
+        <input type="text" class="form-control" name="latitude" id="lat" [(ngModel)]="imovelEdit.latitude"
+          placeholder="Latitude" value='11' required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="longitude" [(ngModel)]="imovelEdit.longitude"
+          [ngModelOptions]="{standalone: true}" placeholder="Longitude" required>
+      </div>
+    </section>
+
+  </div>
+
+
+
+
+
+
+
+
+
+  <p-footer>
+
+    <button type="button" class="btn btn-default" (click)="cancelar()">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>
+  </p-footer>
+
+
+</p-dialog>
