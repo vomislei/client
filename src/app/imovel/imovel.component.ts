@@ -17,8 +17,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { environment } from '../../environments/environment';
 import { DataTable } from 'primeng/components/datatable/datatable';
-
-
+import { FileUploader} from 'ng2-file-upload'
 @Component({
   templateUrl: './imovel.component.html',
   styleUrls: ['./imovel.component.css']
@@ -89,7 +88,7 @@ export class ImovelComponent implements OnInit {
     });
 
     // Método utilizado no upload de arquivos
-    onUpload(event) {
+  /*    myUploader(event) {
       for (const file of event.files) {
         this.uploadedFiles.push(file);
       }
@@ -103,7 +102,7 @@ export class ImovelComponent implements OnInit {
         this.showDialog = false;
         this.uploadedFiles = [];
       }, 500);
-    }
+    }*/
 
     // Testando o Google Maps
     const mapProp = {

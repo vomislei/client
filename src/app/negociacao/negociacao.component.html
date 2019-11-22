@@ -5,7 +5,7 @@
       <h4 _ngcontent-c2="" class="title pull-left title1">Negociação</h4>
       <button class="btn btn-primary botao" (click)="novo()">Criar novo</button>
 
-      <p-table [value]="negociacaos"  [paginator]="true" [rows]="10">
+      <p-table [value]="negociacaos" [paginator]="true" [rows]="10">
         <ng-template pTemplate="header">
           <tr>
             <th class="ids">ID</th>
@@ -51,7 +51,8 @@
         <div class="form-group">
           <label for="clientes">Vendedor/Locador</label>
           <p-dropdown name="clientes" [options]="clientes" (onChange)="buscaImoveis(negociacaoEdit.imovel.cliente)"
-            [(ngModel)]="negociacaoEdit.imovel.cliente" optionLabel="nome" [autoDisplayFirst]="false" placeholder="Selecione um vendedor/locador!">
+            [(ngModel)]="negociacaoEdit.imovel.cliente" optionLabel="nome" [autoDisplayFirst]="false" required
+            placeholder="Selecione um vendedor/locador">
           </p-dropdown>
         </div>
       </div>
@@ -61,10 +62,9 @@
         <div class="form-group">
           <label for="imovel">Imóvel</label>
           <p-dropdown name="imovel" id="imovel" [options]="imovels" [(ngModel)]="negociacaoEdit.imovel"
-            optionLabel="rua" [autoDisplayFirst]="false" placeholder="Selecione um imóvel!">
+            optionLabel="rua" [autoDisplayFirst]="false" placeholder="Selecione um imóvel">
           </p-dropdown>
         </div>
-
       </div>
     </div>
 
@@ -73,7 +73,7 @@
         <div class="form-group">
           <label for="clienteaux">Comprador/Locatário</label>
           <p-dropdown name="clienteaux" id="clienteaux" [options]="clientesaux" [(ngModel)]="negociacaoEdit.cliente"
-            optionLabel="nome" [autoDisplayFirst]="false" placeholder="Selecione um comprador/locatário!">
+            optionLabel="nome" [autoDisplayFirst]="false" required placeholder="Selecione um comprador/locatário">
           </p-dropdown>
         </div>
       </div>
@@ -86,14 +86,14 @@
       <div class="col-sm-3">
         <div class="form-group">
           <label for="datainicio">Data Inicio:</label>
-          <input type="date" id="datainicio" name="datainicio" class="form-control"
+          <input type="date" id="datainicio" name="datainicio" class="form-control" required
             [(ngModel)]="negociacaoEdit.datainicio">
         </div>
       </div>
       <div class="col-sm-3">
         <div class="form-group">
           <label for="data">Data:</label>
-          <input type="date" id="data" name="data" class="form-control" [(ngModel)]="negociacaoEdit.data">
+          <input type="date" id="data" name="data" class="form-control" required [(ngModel)]="negociacaoEdit.data">
         </div>
       </div>
       <div class="col-sm-3">
@@ -109,30 +109,33 @@
     <div class="col-sm-12">
       <div class="col-sm-6">
         <label>Valor à Receber:</label>
-        <input type="number" id="vreceber" name="vreceber" class="form-control" [(ngModel)]="negociacaoEdit.vreceber">
+        <input type="number" id="vreceber" name="vreceber" class="form-control" required
+          [(ngModel)]="negociacaoEdit.vreceber">
       </div>
       <div class="col-sm-6">
         <label>Valor à Pagar:</label>
-        <input type="number" id="vpagar" name="vpagar" class="form-control" [(ngModel)]="negociacaoEdit.vpagar">
+        <input type="number" id="vpagar" name="vpagar" class="form-control" required
+          [(ngModel)]="negociacaoEdit.vpagar">
       </div>
     </div>
     <br>
     <div class="col-sm-12">
       <label class="col-sm-12" for="tiponegocio">Tipo Negócio:</label>
       <div class="ui-g-4">
-        <p-radioButton [value]="true" label="Aluguel" [(ngModel)]="negociacaoEdit.tiponegocio"></p-radioButton>
+        <p-radioButton [value]="true" label="Aluguel" [(ngModel)]="negociacaoEdit.tiponegocio" required></p-radioButton>
       </div>
       <div class="ui-g-4">
-        <p-radioButton [value]="false" label="Venda" [(ngModel)]="negociacaoEdit.tiponegocio"></p-radioButton>
+        <p-radioButton [value]="false" label="Venda" [(ngModel)]="negociacaoEdit.tiponegocio" required></p-radioButton>
       </div>
     </div>
 
     <div class="col-sm-12">
       <div class="col-sm-12">
         <div class="form-group">
-          <label for="funcionario">Funcionário</label>
+          <label for="funcionario" required>Funcionário</label>
           <p-dropdown name="funcionario" id="funcionario" [options]="funcionarios"
-            [(ngModel)]="negociacaoEdit.funcionario" optionLabel="nome" [autoDisplayFirst]="false"placeholder="Selecione um funcionário!">
+            [(ngModel)]="negociacaoEdit.funcionario" optionLabel="nome" [autoDisplayFirst]="false"
+            [required]="isRequired" placeholder="Selecione um funcionário">
           </p-dropdown>
         </div>
       </div>

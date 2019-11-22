@@ -6,6 +6,7 @@ import { CidadeService } from '../cidade/cidade.service';
 import { LoginService } from '../login/login.service';
 import { Message } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
+import { FormControlName } from '@angular/forms';
 
 @Component({
   templateUrl: './bairro.component.html',
@@ -18,6 +19,7 @@ export class BairroComponent implements OnInit {
   bairroEdit = new Bairro();
   cidades: Cidade[];
   msgs: Message[] = [];
+
 
   constructor(private bairroService: BairroService,
     private confirmationService: ConfirmationService,
@@ -83,4 +85,7 @@ export class BairroComponent implements OnInit {
     this.showDialog = false;
     this.bairroService.findAll().subscribe(e => this.bairros = e);
   }
+
+
+
 }

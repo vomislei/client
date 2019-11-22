@@ -6,7 +6,7 @@
       <button *ngIf="hasRole('BAIRRO_CRIAR') || hasRole('ADMIN')" class="btn btn-primary botao" (click)="novo()">Criar
         novo</button>
 
-      <p-table [value]="bairros"  [paginator]="true" [rows]="10">
+      <p-table [value]="bairros" [paginator]="true" [rows]="10">
         <ng-template pTemplate="header">
           <tr>
             <th class="ids">ID</th>
@@ -37,13 +37,14 @@
       <p-confirmDialog></p-confirmDialog>
       <p-growl [(value)]="msgs"></p-growl>
 
-      <p-dialog header="Cadastro de Bairros" [(visible)]="showDialog" mo dal="modal" [responsive]="true" [width]="500">
+      <p-dialog  header="Cadastro de Bairros" [(visible)]="showDialog" mo dal="modal" [responsive]="true" [width]="500">
+
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
               <label for="lblnome">Nome</label>
-              <input id="nome" name="nome" class="form-control" required="required" minlength="4"
-                [(ngModel)]="bairroEdit.nome">
+              <input id="nome" name="nome" class="form-control" required minlength="4" [(ngModel)]="bairroEdit.nome">
+
 
             </div>
           </div>
@@ -52,12 +53,13 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label for="cidade">Cidade</label>
-              <p-dropdown name="cidade" id="cidade" placeholder="Selecione uma cidade" [options]="cidades" [(ngModel)]="bairroEdit.cidade"
-                optionLabel="nome" required="required" [autoDisplayFirst]="false">
+              <p-dropdown name="cidade" id="cidade" placeholder="Selecione uma cidade" [options]="cidades"
+                [(ngModel)]="bairroEdit.cidade" optionLabel="nome" required [autoDisplayFirst]="false">
               </p-dropdown>
             </div>
           </div>
         </div>
+
         <p-footer>
           <button type="button" class="btn btn-default" (click)="cancelar()">Cancelar</button>
           <button type="button" class="btn btn-success" (click)="salvar()">Salvar</button>

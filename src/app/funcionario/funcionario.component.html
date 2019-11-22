@@ -6,7 +6,7 @@
 			<button *ngIf="hasRole('FUNCIONARIO_CRIAR') || hasRole('ADMIN')" class="btn btn-primary botao"
 				(click)="novo()">Criar novo</button>
 
-			<p-table [value]="funcionarios"  [paginator]="true" [rows]="10">
+			<p-table [value]="funcionarios" [paginator]="true" [rows]="10">
 				<ng-template pTemplate="header">
 					<tr>
 						<th class="ids">ID</th>
@@ -49,12 +49,12 @@
 		<div class="col-sm-12">
 			<div class="col-sm-2">
 				<label for="matricula">Matricula</label>
-				<input type="text" id="matricula" name="matricula" class="form-control"
+				<input type="text" id="matricula" name="matricula" class="form-control" required
 					[(ngModel)]="funcionarioEdit.matricula">
 			</div>
 			<div class="col-sm-4">
 				<label for="admissao">Data Admissao: </label>
-				<input type="date" id="admissao" name="admissao" class="form-control"
+				<input type="date" id="admissao" name="admissao" class="form-control" required
 					[(ngModel)]="funcionarioEdit.admissao">
 			</div>
 			<div class="col-sm-4">
@@ -72,7 +72,8 @@
 		<div class="col-sm-12">
 			<div class="col-sm-6">
 				<label for="nome">Nome</label>
-				<input type="text" id="nome" name="nome" class="form-control" [(ngModel)]="funcionarioEdit.nome">
+				<input type="text" id="nome" name="nome" class="form-control" required minlength="4"
+					[(ngModel)]="funcionarioEdit.nome">
 			</div>
 			<div class="col-sm-6">
 				<label for="apelido">Apelido</label>
@@ -86,13 +87,13 @@
 		<div class="col-sm-12">
 			<div class="col-sm-6">
 				<label for="cpf_cnpj">CPF</label><br>
-				<p-inputMask mask="999.999.999-99" id="cpf_cnpj" name="cpf_cnpj" placeholder="999.999.999-99"
+				<p-inputMask mask="999.999.999-99" id="cpf_cnpj" name="cpf_cnpj" placeholder="999.999.999-99" minlength="11" required
 					[(ngModel)]="funcionarioEdit.cpf_cnpj">
 				</p-inputMask><br>
 			</div>
 			<div class="col-sm-6">
 				<label for="telefone">Telefone</label><br>
-				<p-inputMask mask="(99)99999-9999" id="telefone" name="telefone" placeholder="(99)99999-9999"
+				<p-inputMask mask="(99)99999-9999" id="telefone" name="telefone" placeholder="(99)99999-9999" minlength="11" required
 					[(ngModel)]="funcionarioEdit.telefone">
 				</p-inputMask><br>
 			</div>
@@ -123,13 +124,13 @@
 		<div class="col-sm-12">
 			<div class="col-sm-6">
 				<label for="endereco">Endereco</label>
-				<input type="text" id="endereco" name="endereco" class="form-control"
-					[(ngModel)]="funcionarioEdit.endereco">
+				<input type="text" id="endereco" name="endereco" class="form-control" required
+					[(ngModel)]="funcionarioEdit.endereco" minlength="5">
 
 			</div>
 			<div class="col-sm-6">
 				<label for="email">E-mail</label>
-				<input type="email" id="email" name="email" class="form-control" placeholder="email@email.com"
+				<input type="email" id="email" name="email" class="form-control" placeholder="email@email.com" minlength="5" required
 					[(ngModel)]="funcionarioEdit.email">
 			</div>
 		</div>

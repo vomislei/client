@@ -51,20 +51,20 @@
       <div class="col-sm-4">
         <label for="cliente">Cliente</label>
         <p-dropdown name="cliente" id="cliente" [options]="clientes" [(ngModel)]="imovelEdit.cliente"
-          placeholder="Selecione um cliente!" optionLabel="nome" [autoDisplayFirst]="false" required>
+          placeholder="Selecione um cliente!" required="true" optionLabel="nome" [autoDisplayFirst]="false" required>
         </p-dropdown>
       </div>
       <div class="col-sm-4">
         <label for="cidade">Cidade</label>
         <p-dropdown name="cidade" [options]="cidades" (onChange)="buscaBairros(imovelEdit.bairro.cidade)"
-          [(ngModel)]="imovelEdit.bairro.cidade" placeholder="Selecione uma cidade!" optionLabel="nome"
+          [(ngModel)]="imovelEdit.bairro.cidade" required="true" placeholder="Selecione uma cidade!" optionLabel="nome"
           [autoDisplayFirst]="false" required>
         </p-dropdown>
       </div>
       <div class="col-sm-4">
         <label for="bairro">Bairro</label>
         <p-dropdown name="bairro" id="bairro" [options]="bairros" [(ngModel)]="imovelEdit.bairro"
-          placeholder="Selecione um bairro!" [ngModelOptions]="{standalone: true}" optionLabel="nome"
+          placeholder="Selecione um bairro!" required="true" [ngModelOptions]="{standalone: true}" optionLabel="nome"
           [autoDisplayFirst]="false" required>
         </p-dropdown>
       </div>
@@ -75,14 +75,14 @@
   <div clas="row">
     <div class="col-sm-6">
       <label for="nome">Endereço:</label>
-      <input type="text" id="rua" name="rua" required=“required” class="form-control" [(ngModel)]="imovelEdit.rua">
+      <input type="text" id="rua" name="rua" required=“required” class="form-control" minlength="5  " [(ngModel)]="imovelEdit.rua">
     </div>
   </div>
 
   <div clas="row">
     <div class="col-sm-6">
       <label for="cep">CEP</label><br>
-      <p-inputMask mask="99999999" id="cep" name="cep" placeholder="99999-999" [(ngModel)]="imovelEdit.cep">
+      <p-inputMask mask="99999999" id="cep" name="cep" placeholder="99999-999" minlength="8" [(ngModel)]="imovelEdit.cep">
       </p-inputMask><br>
       <br>
     </div>
@@ -91,7 +91,7 @@
   <div clas="row">
     <div class="col-sm-6">
       <label>Quartos:</label>
-      <input type="number" id="Quartos" name="quartos" min="1" max="100000" required=“required” class="form-control"
+      <input type="number" id="Quartos" name="quartos" min="1" max="100000" required class="form-control"
         [(ngModel)]="imovelEdit.quartos">
     </div>
   </div>
@@ -99,7 +99,7 @@
   <div clas="row">
     <div class="col-sm-6">
       <label>Vagas Garagem:</label>
-      <input type="number" id="vgaragem" name="vgaragem" min="1" max="100000" required=“required” class="form-control"
+      <input type="number" id="vgaragem" name="vgaragem" min="1" max="100000" required class="form-control"
         [(ngModel)]="imovelEdit.vgaragem">
     </div>
   </div>
@@ -134,7 +134,7 @@
     <div class="col-sm-6">
       <label>Venda</label>
       <input type="checkbox" name="myChk" id="myChk" (change)="disableVenda()" [(ngModel)]="imovelEdit.venda" />
-      <input type="number" id="vvenda" name="vvenda" [step]="0.1" min="1" max="100000" required=“required”
+      <input type="number" id="vvenda" name="vvenda" [step]="0.1" min="1" max="100000" required
         class="form-control" placeholder="Valor Venda R$:" [disabled]="isDisabledVenda" [(ngModel)]="imovelEdit.vvenda">
     </div>
   </div>
@@ -143,7 +143,7 @@
     <div class="col-sm-6">
       <label>Locação</label>
       <input type="checkbox" name="myChk" id="myChk" (change)="disableLocacao()" [(ngModel)]="imovelEdit.locacao" />
-      <input type="number" id="vlocacao" name="vlocacao" [step]="0.1" min="1" max="100000" required=“required”
+      <input type="number" id="vlocacao" name="vlocacao" [step]="0.1" min="1" max="100000" required
         class="form-control" placeholder="Valor Locação R$:" [disabled]="isDisabledLoca"
         [(ngModel)]="imovelEdit.vlocacao">
     </div>
@@ -154,7 +154,7 @@
   <div clas="row">
     <div class="col-sm-6">
       <label for="nome">M² Terreno:* </label>
-      <input type="number" id="mterreno" name="mterreno" [step]="0.1" min="1" max="100000" required=“required”
+      <input type="number" id="mterreno" name="mterreno" [step]="0.1" min="1" max="100000" required
         class="form-control" [(ngModel)]="imovelEdit.mterreno">
     </div>
   </div>
@@ -162,7 +162,7 @@
   <div clas="row">
     <div class="col-sm-6">
       <label for="nome">M² Imovel:* </label>
-      <input type="number" id="mimovel" name="mimovel" [step]="0.1" min="1" max="100000" required=“required”
+      <input type="number" id="mimovel" name="mimovel" [step]="0.1" min="1" max="100000" required
         class="form-control" [(ngModel)]="imovelEdit.mimovel">
     </div>
   </div>
@@ -173,8 +173,8 @@
     <div class="ui-g-12 ui-fluid">
       <label for="imagem">Imagem</label>
       <p-fileUpload chooseLabel="Selecionar..." cancelLabel="Cancelar" name="imagem"
-        url="{{urlApi}}/imovel/upload/{{imovelEdit.id}}" (onUpload)="onUpload($event)" accept=".jpg"
-        maxFileSize="1000000">
+        url="{{urlApi}}/imovel/upload/{{imovelEdit.id}}" (onUpload)="myUploader($event)" accept=".jpg"
+        maxFileSize="1000000" multiple="multiple">
         <ng-template pTemplate="content">
           <ul *ngIf="uploadedFiles.length">
             <li *ngFor="let file of uploadedFiles">

@@ -9,8 +9,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //imagem
-//import {FileUploadModule} from '../../../node_modules/ng2-file-upload';
-
+import { FileUploadModule} from 'primeng/components/fileupload/fileupload';
 
 
 import { DropdownModule } from 'primeng/dropdown';
@@ -26,8 +25,6 @@ import { ImovelComponent } from './imovel.component';
 import { CidadeService } from '../cidade/cidade.service';
 import { BairroService } from '../bairro/bairro.service';
 
-
-
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +39,8 @@ import { BairroService } from '../bairro/bairro.service';
     ConfirmDialogModule,
     CheckboxModule,
     GrowlModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileUploadModule
   ],
   declarations: [
     ImovelComponent

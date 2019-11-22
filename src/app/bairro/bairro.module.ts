@@ -9,6 +9,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import {MessagesModule} from 'primeng/components/messages/messages';
+import {MessageModule} from 'primeng/components/message/message';
+
 import { BairroComponent } from './bairro.component';
 import { BairroService } from './bairro.service';
 import { CidadeService } from '../cidade/cidade.service';
@@ -23,7 +26,9 @@ import { LoginService } from '../login/login.service';
     DialogModule,
     DropdownModule,
     ConfirmDialogModule,
-    GrowlModule
+    GrowlModule,
+    MessagesModule,
+    MessageModule
   ],
   declarations: [
     BairroComponent

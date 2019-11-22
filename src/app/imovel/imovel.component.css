@@ -1,3 +1,7 @@
+/*.ng-invalid:not(form){
+  border-left: 5px solid #a94442;
+}
+*/
 .drop-box {
     cursor: pointer;
     background: #F8F8F8;
@@ -25,4 +29,6 @@
   input[type='file'] {
     display: none;
   }
+
+
   

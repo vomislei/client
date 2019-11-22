@@ -6,7 +6,7 @@
 			<button *ngIf="hasRole('CLIENTE_CRIAR') || hasRole('ADMIN')" class="btn btn-primary botao"
 				(click)="novo()">Criar novo</button>
 
-			<p-table [value]="clientes"  [paginator]="true" [rows]="10">
+			<p-table [value]="clientes" [paginator]="true" [rows]="10">
 				<ng-template pTemplate="header">
 					<tr>
 						<th class="ids">ID</th>
@@ -48,7 +48,8 @@
 		<div class="col-sm-12">
 			<div class="col-sm-6">
 				<label for="nome">Nome</label>
-				<input type="text" id="nome" name="nome" class="form-control" [(ngModel)]="clienteEdit.nome">
+				<input type="text" id="nome" name="nome" class="form-control" minlength="4" required
+					[(ngModel)]="clienteEdit.nome">
 			</div>
 			<div class="col-sm-6">
 				<label for="apelido">Apelido/Nome Fantasia</label>
@@ -62,14 +63,14 @@
 		<div class="col-sm-12">
 			<div class="col-sm-3">
 				<label for="cpf_cnpj">CPF/CNPJ</label><br>
-				<p-inputMask mask="99999999999999" id="cpf_cnpj" name="cpf_cnpj" placeholder="99999999999999"
-					[(ngModel)]="clienteEdit.cpf_cnpj">
+				<p-inputMask mask="99999999999999" id="cpf_cnpj" name="cpf_cnpj" minlength="11"
+					placeholder="99999999999999" required [(ngModel)]="clienteEdit.cpf_cnpj">
 				</p-inputMask><br>
 			</div>
 			<div class="col-sm-3">
 				<label for="telefone">Telefone</label><br>
-				<p-inputMask mask="(99)99999-9999" id="telefone" name="telefone" placeholder="(99)99999-9999"
-					[(ngModel)]="clienteEdit.telefone">
+				<p-inputMask mask="(99)99999-9999" id="telefone" name="telefone" minlength="11"
+					placeholder="(99)99999-9999" required [(ngModel)]="clienteEdit.telefone">
 				</p-inputMask><br>
 			</div>
 			<div class="col-sm-1">
@@ -86,13 +87,13 @@
 			<div class="col-sm-6">
 				<label for="cidade">Cidade</label>
 				<p-dropdown name="cidade" [options]="cidades" placeholder="Selecione uma cidade"
-					(onChange)="buscaBairros(clienteEdit.bairro.cidade)" [(ngModel)]="clienteEdit.bairro.cidade"
-					optionLabel="nome" [autoDisplayFirst]="false">
+					(onChange)="buscaBairros(clienteEdit.bairro.cidade)" required
+					[(ngModel)]="clienteEdit.bairro.cidade" optionLabel="nome" [autoDisplayFirst]="false">
 				</p-dropdown>
 			</div>
 			<div class="col-sm-6">
 				<label for="bairro">Bairro</label>
-				<p-dropdown name="bairro" id="bairro" [options]="bairros" placeholder="Selecione uma cidade" required
+				<p-dropdown name="bairro" id="bairro" [options]="bairros" placeholder="Selecione um bairro" required
 					[(ngModel)]="clienteEdit.bairro" [ngModelOptions]="{standalone: true}" optionLabel="nome"
 					[autoDisplayFirst]="false">
 				</p-dropdown>
@@ -106,13 +107,13 @@
 		<div class="col-sm-12">
 			<div class="col-sm-6">
 				<label for="endereco">Endereco</label>
-				<input type="text" id="endereco" name="endereco" class="form-control"
+				<input type="text" id="endereco" name="endereco" minlength="5" class="form-control" required
 					[(ngModel)]="clienteEdit.endereco">
 			</div>
 			<div class="col-sm-6">
 				<label for="email">E-mail</label>
-				<input type="email" id="email" name="email" class="form-control" placeholder="email@email.com"
-					[(ngModel)]="clienteEdit.email">
+				<input type="email" id="email" name="email" class="form-control" minlength="5"
+					placeholder="email@email.com" required [(ngModel)]="clienteEdit.email">
 			</div>
 		</div>
 	</div>
@@ -121,10 +122,11 @@
 		<div class="col-sm-12">
 			<div class="col-sm-12">
 				<label for="interesses">Interesses</label>
-				
-				<textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" type="text" id="interesses" name="interesses" class="form-control"
-				[(ngModel)]="clienteEdit.interesses"></textarea>
-				
+
+				<textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" minlength="5" type="text"
+					id="interesses" name="interesses" class="form-control" required
+					[(ngModel)]="clienteEdit.interesses"></textarea>
+
 			</div>
 		</div>
 	</div>

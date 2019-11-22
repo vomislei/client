@@ -20,8 +20,7 @@ import {ImovelModule} from './imovel/imovel.module';
 import {NegociacaoModule} from './negociacao/negociacao.module';
 import {ContaaReceberModule} from './contaareceber/contaareceber.module';
 import {ContaaPagarModule} from './contaapagar/contaapagar.module';
-
-
+import { FileUploadModule } from 'primeng/components/fileupload/fileupload';
 @NgModule({
   declarations: [
     AppComponent
@@ -43,7 +42,8 @@ import {ContaaPagarModule} from './contaapagar/contaapagar.module';
     ImovelModule,
     NegociacaoModule,
     ContaaReceberModule,
-    ContaaPagarModule
+    ContaaPagarModule,
+    FileUploadModule
 
   ],
   providers: [
