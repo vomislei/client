@@ -36,18 +36,19 @@
 
       <p-confirmDialog></p-confirmDialog>
       <p-growl [(value)]="msgs"></p-growl>
+
       <p-dialog header="Cadastro de Cidades" [(visible)]="showDialog" modal="modal" [responsive]="true" [width]="500">
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
-              <label for="lblnome">Nome</label>
+              <label for="lblnome">Nome: *</label>
               <input id="nome" name="nome" class="form-control" required minlength="4" [(ngModel)]="cidadeEdit.nome">
             </div>
 
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="lblestado">Estado</label>
+                  <label for="lblestado">Estado: *</label>
                   <input id="estado" name="estado" class="form-control" required placeholder="XX" minlength="2" maxlength="2"
                     [(ngModel)]="cidadeEdit.estado">
                 </div>

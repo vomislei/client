@@ -47,7 +47,7 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<label for="nome">Nome</label>
+				<label for="nome">Nome: *</label>
 				<input type="text" id="nome" name="nome" class="form-control" minlength="4" required
 					[(ngModel)]="clienteEdit.nome">
 			</div>
@@ -62,13 +62,13 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-3">
-				<label for="cpf_cnpj">CPF/CNPJ</label><br>
+				<label for="cpf_cnpj">CPF/CNPJ: *</label><br>
 				<p-inputMask mask="99999999999999" id="cpf_cnpj" name="cpf_cnpj" minlength="11"
 					placeholder="99999999999999" required [(ngModel)]="clienteEdit.cpf_cnpj">
 				</p-inputMask><br>
 			</div>
 			<div class="col-sm-3">
-				<label for="telefone">Telefone</label><br>
+				<label for="telefone">Telefone: *</label><br>
 				<p-inputMask mask="(99)99999-9999" id="telefone" name="telefone" minlength="11"
 					placeholder="(99)99999-9999" required [(ngModel)]="clienteEdit.telefone">
 				</p-inputMask><br>
@@ -85,14 +85,14 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<label for="cidade">Cidade</label>
+				<label for="cidade">Cidade: *</label>
 				<p-dropdown name="cidade" [options]="cidades" placeholder="Selecione uma cidade"
 					(onChange)="buscaBairros(clienteEdit.bairro.cidade)" required
 					[(ngModel)]="clienteEdit.bairro.cidade" optionLabel="nome" [autoDisplayFirst]="false">
 				</p-dropdown>
 			</div>
 			<div class="col-sm-6">
-				<label for="bairro">Bairro</label>
+				<label for="bairro">Bairro: *</label>
 				<p-dropdown name="bairro" id="bairro" [options]="bairros" placeholder="Selecione um bairro" required
 					[(ngModel)]="clienteEdit.bairro" [ngModelOptions]="{standalone: true}" optionLabel="nome"
 					[autoDisplayFirst]="false">
@@ -106,12 +106,12 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<label for="endereco">Endereco</label>
+				<label for="endereco">Endereco: *</label>
 				<input type="text" id="endereco" name="endereco" minlength="5" class="form-control" required
 					[(ngModel)]="clienteEdit.endereco">
 			</div>
 			<div class="col-sm-6">
-				<label for="email">E-mail</label>
+				<label for="email">E-mail: *</label>
 				<input type="email" id="email" name="email" class="form-control" minlength="5"
 					placeholder="email@email.com" required [(ngModel)]="clienteEdit.email">
 			</div>
@@ -121,7 +121,7 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-12">
-				<label for="interesses">Interesses</label>
+				<label for="interesses">Interesses: *</label>
 
 				<textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" minlength="5" type="text"
 					id="interesses" name="interesses" class="form-control" required

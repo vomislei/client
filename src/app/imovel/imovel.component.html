@@ -49,20 +49,20 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="col-sm-4">
-        <label for="cliente">Cliente</label>
+        <label for="cliente">Cliente: *</label>
         <p-dropdown name="cliente" id="cliente" [options]="clientes" [(ngModel)]="imovelEdit.cliente"
           placeholder="Selecione um cliente!" required="true" optionLabel="nome" [autoDisplayFirst]="false" required>
         </p-dropdown>
       </div>
       <div class="col-sm-4">
-        <label for="cidade">Cidade</label>
+        <label for="cidade">Cidade: *</label>
         <p-dropdown name="cidade" [options]="cidades" (onChange)="buscaBairros(imovelEdit.bairro.cidade)"
           [(ngModel)]="imovelEdit.bairro.cidade" required="true" placeholder="Selecione uma cidade!" optionLabel="nome"
           [autoDisplayFirst]="false" required>
         </p-dropdown>
       </div>
       <div class="col-sm-4">
-        <label for="bairro">Bairro</label>
+        <label for="bairro">Bairro: *</label>
         <p-dropdown name="bairro" id="bairro" [options]="bairros" [(ngModel)]="imovelEdit.bairro"
           placeholder="Selecione um bairro!" required="true" [ngModelOptions]="{standalone: true}" optionLabel="nome"
           [autoDisplayFirst]="false" required>
@@ -74,14 +74,14 @@
 
   <div clas="row">
     <div class="col-sm-6">
-      <label for="nome">Endereço:</label>
+      <label for="nome">Endereço: *</label>
       <input type="text" id="rua" name="rua" required=“required” class="form-control" minlength="5  " [(ngModel)]="imovelEdit.rua">
     </div>
   </div>
 
   <div clas="row">
     <div class="col-sm-6">
-      <label for="cep">CEP</label><br>
+      <label for="cep">CEP: *</label><br>
       <p-inputMask mask="99999999" id="cep" name="cep" placeholder="99999-999" minlength="8" [(ngModel)]="imovelEdit.cep">
       </p-inputMask><br>
       <br>
@@ -90,7 +90,7 @@
 
   <div clas="row">
     <div class="col-sm-6">
-      <label>Quartos:</label>
+      <label>Quartos: *</label>
       <input type="number" id="Quartos" name="quartos" min="1" max="100000" required class="form-control"
         [(ngModel)]="imovelEdit.quartos">
     </div>
@@ -98,7 +98,7 @@
 
   <div clas="row">
     <div class="col-sm-6">
-      <label>Vagas Garagem:</label>
+      <label>Vagas Garagem: *</label>
       <input type="number" id="vgaragem" name="vgaragem" min="1" max="100000" required class="form-control"
         [(ngModel)]="imovelEdit.vgaragem">
     </div>
@@ -132,7 +132,7 @@
 
   <div clas="row">
     <div class="col-sm-6">
-      <label>Venda</label>
+      <label>Venda: *</label>
       <input type="checkbox" name="myChk" id="myChk" (change)="disableVenda()" [(ngModel)]="imovelEdit.venda" />
       <input type="number" id="vvenda" name="vvenda" [step]="0.1" min="1" max="100000" required
         class="form-control" placeholder="Valor Venda R$:" [disabled]="isDisabledVenda" [(ngModel)]="imovelEdit.vvenda">
@@ -141,7 +141,7 @@
 
   <div clas="row">
     <div class="col-sm-6">
-      <label>Locação</label>
+      <label>Locação: *</label>
       <input type="checkbox" name="myChk" id="myChk" (change)="disableLocacao()" [(ngModel)]="imovelEdit.locacao" />
       <input type="number" id="vlocacao" name="vlocacao" [step]="0.1" min="1" max="100000" required
         class="form-control" placeholder="Valor Locação R$:" [disabled]="isDisabledLoca"
@@ -153,7 +153,7 @@
 
   <div clas="row">
     <div class="col-sm-6">
-      <label for="nome">M² Terreno:* </label>
+      <label for="nome">M² Terreno:</label>
       <input type="number" id="mterreno" name="mterreno" [step]="0.1" min="1" max="100000" required
         class="form-control" [(ngModel)]="imovelEdit.mterreno">
     </div>
@@ -161,7 +161,7 @@
 
   <div clas="row">
     <div class="col-sm-6">
-      <label for="nome">M² Imovel:* </label>
+      <label for="nome">M² Imovel:</label>
       <input type="number" id="mimovel" name="mimovel" [step]="0.1" min="1" max="100000" required
         class="form-control" [(ngModel)]="imovelEdit.mimovel">
     </div>

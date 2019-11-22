@@ -48,12 +48,12 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-2">
-				<label for="matricula">Matricula</label>
+				<label for="matricula">Matricula: *</label>
 				<input type="text" id="matricula" name="matricula" class="form-control" required
 					[(ngModel)]="funcionarioEdit.matricula">
 			</div>
 			<div class="col-sm-4">
-				<label for="admissao">Data Admissao: </label>
+				<label for="admissao">Data Admissao: *</label>
 				<input type="date" id="admissao" name="admissao" class="form-control" required
 					[(ngModel)]="funcionarioEdit.admissao">
 			</div>
@@ -71,7 +71,7 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<label for="nome">Nome</label>
+				<label for="nome">Nome: *</label>
 				<input type="text" id="nome" name="nome" class="form-control" required minlength="4"
 					[(ngModel)]="funcionarioEdit.nome">
 			</div>
@@ -86,13 +86,13 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<label for="cpf_cnpj">CPF</label><br>
+				<label for="cpf_cnpj">CPF: *</label><br>
 				<p-inputMask mask="999.999.999-99" id="cpf_cnpj" name="cpf_cnpj" placeholder="999.999.999-99" minlength="11" required
 					[(ngModel)]="funcionarioEdit.cpf_cnpj">
 				</p-inputMask><br>
 			</div>
 			<div class="col-sm-6">
-				<label for="telefone">Telefone</label><br>
+				<label for="telefone">Telefone: *</label><br>
 				<p-inputMask mask="(99)99999-9999" id="telefone" name="telefone" placeholder="(99)99999-9999" minlength="11" required
 					[(ngModel)]="funcionarioEdit.telefone">
 				</p-inputMask><br>
@@ -104,14 +104,14 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<label for="cidade">Cidade</label>
+				<label for="cidade">Cidade: *</label>
 				<p-dropdown name="cidade" [options]="cidades" placeholder="Selecione uma cidade"
 					(onChange)="buscaBairros(funcionarioEdit.bairro.cidade)" required
 					[(ngModel)]="funcionarioEdit.bairro.cidade" optionLabel="nome" [autoDisplayFirst]="false">
 				</p-dropdown>
 			</div>
 			<div class="col-sm-6">
-				<label for="bairro">Bairro</label>
+				<label for="bairro">Bairro: *</label>
 				<p-dropdown name="bairro" id="bairro" [options]="bairros" placeholder="Selecione um bairro"
 					[(ngModel)]="funcionarioEdit.bairro" required [ngModelOptions]="{standalone: true}"
 					optionLabel="nome" [autoDisplayFirst]="false">
@@ -123,13 +123,13 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<label for="endereco">Endereco</label>
+				<label for="endereco">Endereco: *</label>
 				<input type="text" id="endereco" name="endereco" class="form-control" required
 					[(ngModel)]="funcionarioEdit.endereco" minlength="5">
 
 			</div>
 			<div class="col-sm-6">
-				<label for="email">E-mail</label>
+				<label for="email">E-mail: *</label>
 				<input type="email" id="email" name="email" class="form-control" placeholder="email@email.com" minlength="5" required
 					[(ngModel)]="funcionarioEdit.email">
 			</div>

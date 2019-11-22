@@ -52,7 +52,7 @@
 
     <div class="col-sm-12">
       <div class="form-group">
-        <label for="nome">Nome</label>
+        <label for="nome">Nome: *</label>
         <input type="text"
                id="nome"
                name="nome"
@@ -62,7 +62,7 @@
                [(ngModel)]="usuarioEdit.nome"
                required>
 
-        <label for="username">Login</label>
+        <label for="username">Login: *</label>
         
         <input type="text"
                id="username"
@@ -74,7 +74,7 @@
                >
 
 
-        <label for="password">Senha</label>
+        <label for="password">Senha: *</label>
         <input type="password"
                id="password"
                name="password"
@@ -89,10 +89,10 @@
           <div class="ui-g-4"><p-radioButton name="nao" [value]="false" label="Não" [(ngModel)]="usuarioEdit.ativo"></p-radioButton></div>
         </div>
 
-        <h5 class="first">Funcionario</h5>
+        <h5 class="first">Funcionario: *</h5>
         <p-dropdown [options]="funcionarios" [(ngModel)]="usuarioEdit.funcionario" placeholder="Selecione um funcionario" optionLabel="nome" [showClear]="true"></p-dropdown>
 
-        <h5 class="first">Perfil</h5>
+        <h5 class="first">Perfil: *</h5>
         <p-dropdown [options]="perfils" [(ngModel)]="usuarioEdit.perfil" placeholder="Selecione um perfil" optionLabel="nome" [showClear]="true"></p-dropdown>
 
       </div>

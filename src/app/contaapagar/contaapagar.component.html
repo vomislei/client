@@ -58,7 +58,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group"> 
-              <label for="lblnome">Cliente</label>
+              <label for="lblnome">Cliente: </label>
               <input id="nome" name="nome" class="form-control" readonly
                 [(ngModel)]="contaapagarEdit.negociacao.imovel.cliente">
             </div>
@@ -73,7 +73,7 @@
 
             <div class="col-sm-6">
               <div class="form-group">
-                <label for="dataquitacao">Data Quitação: </label>
+                <label for="dataquitacao">Data Quitação: *</label>
                 <input type="date" id="dataquitacao" name="dataquitacao" class="form-control"
                 required  [(ngModel)]="contaapagarEdit.dataquitacao" >
               </div>
@@ -81,7 +81,7 @@
 
             <div clas="row">
               <div class="col-sm-6">
-                <label>Valor a pagar</label>
+                <label>Valor a Pagar: </label>
                 <input type="number" id="valorpag" name="valorpag" class="form-control" readonly
                   [(ngModel)]="contaapagarEdit.valorpag">
               </div>
