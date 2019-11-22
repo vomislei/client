@@ -17,7 +17,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { environment } from '../../environments/environment';
 import { DataTable } from 'primeng/components/datatable/datatable';
-import { FileUploader} from 'ng2-file-upload'
+import {FileUpload} from 'primeng/fileupload';
+
 @Component({
   templateUrl: './imovel.component.html',
   styleUrls: ['./imovel.component.css']
@@ -88,7 +89,7 @@ export class ImovelComponent implements OnInit {
     });
 
     // Método utilizado no upload de arquivos
-  /*    myUploader(event) {
+      onUpload(event) {
       for (const file of event.files) {
         this.uploadedFiles.push(file);
       }
@@ -102,7 +103,7 @@ export class ImovelComponent implements OnInit {
         this.showDialog = false;
         this.uploadedFiles = [];
       }, 500);
-    }*/
+    }
 
     // Testando o Google Maps
     const mapProp = {
@@ -177,12 +178,11 @@ export class ImovelComponent implements OnInit {
 
       this.findAll();
       this.showDialog = false;
-      this.msgs = [{ severity: 'sucess', summary: 'Confirmado', detail: 'Registro salvo com sucesso' }];
+      this.msgs = [{ severity: 'sucess', summary: 'Confirmado', detail: 'Registro salvo com sucesso!' }];
     },
       error => {
-        this.msgs = [{ severity: 'error', summary: 'Erro', detail: 'Certifique-se de preencher todos os campos.' }];
-      }
-    );
+        this.msgs = [{ severity: 'error', summary: 'Erro', detail: "Todos os campos com * são obrigatórios!" }];
+      });
 
 
   }

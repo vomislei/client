@@ -56,10 +56,10 @@ export class UsuarioComponent implements OnInit {
       this.usuarioEdit = new Usuario();
       this.findAll();
       this.showDialog = false;
-      this.msgs = [{ severity: 'sucess', summary: 'Confirmado', detail: 'Registro salvo com sucesso' }];
+      this.msgs = [{ severity: 'sucess', summary: 'Confirmado', detail: 'Registro salvo com sucesso!' }];
     },
       error => {
-        this.msgs = [{ severity: 'error', summary: 'Erro', detail: "Verifique campos obrigatórios, ou login já existente!" }];
+        this.msgs = [{ severity: 'error', summary: 'Erro', detail: "Todos os campos com * são obrigatórios!" }];
       });
   }
 

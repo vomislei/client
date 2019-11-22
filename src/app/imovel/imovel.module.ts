@@ -9,8 +9,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //imagem
-import { FileUploadModule} from 'primeng/components/fileupload/fileupload';
-
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule, RadioButtonModule } from 'primeng/primeng';

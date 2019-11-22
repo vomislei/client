@@ -77,12 +77,11 @@ export class ClienteComponent implements OnInit {
 			this.findAll();
 			this.showDialog = false;
 
-			this.msgs = [{ severity: 'sucess', summary: 'Confirmado', detail: 'Registro salvo com sucesso' }];
+			this.msgs = [{ severity: 'sucess', summary: 'Confirmado', detail: 'Registro salvo com sucesso!' }];
 		},
-			error => {
-				this.msgs = [{ severity: 'error', summary: 'Erro', detail: 'Certifique-se de preencher todos os campos.' }];
-			}
-		);
+		  error => {
+			this.msgs = [{ severity: 'error', summary: 'Erro', detail: "Todos os campos com * são obrigatórios!" }];
+		  });
 	}
 
 

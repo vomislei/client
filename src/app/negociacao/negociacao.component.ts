@@ -88,10 +88,10 @@ export class NegociacaoComponent implements OnInit {
           this.negociacaoEdit.funcionario = new Funcionario();
           this.showDialog = false;
           this.findAll();
-          this.msgs = [{ severity: 'sucess', summary: 'Confirmado', detail: 'Registro removido com sucesso!' }];
+          this.msgs = [{ severity: 'sucess', summary: 'Confirmado', detail: 'Registro salvo com sucesso!' }];
         },
           error => {
-            this.msgs = [{ severity: 'error', summary: 'Erro', detail: 'Este registro não pode ser removido!' }];
+            this.msgs = [{ severity: 'error', summary: 'Erro', detail: "Todos os campos com * são obrigatórios!" }];
           });
       }
     });
