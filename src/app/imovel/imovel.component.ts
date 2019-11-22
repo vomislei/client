@@ -113,13 +113,10 @@ export class ImovelComponent implements OnInit {
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
 
-
-    // this.map.addListener('click', this.showPositionClick);
-    // this.map.addListener('click', this.showPositionClick);
-
     this.map.addListener('click', (position) => {
       this.imovelEdit.latitude = position.latLng.lat();
       this.imovelEdit.longitude = position.latLng.lng();
+      this.marker.setPosition(position.latLng);
     });
 
     let location = new google.maps.LatLng(-26.201377098618924, -52.691727236269685);
@@ -140,17 +137,6 @@ export class ImovelComponent implements OnInit {
     this.cidadeService.findAll().subscribe(e => this.cidades = e);
 
   }
-
-  /*
-    //imagem
-    fileOverAnother(e: any): void {
-      this.isDropOver = e;
-    }
-  
-    fileClicked() {
-      this.fileInput.nativeElement.click();
-    }
-  */
 
   buscaBairros(cidade): void {
     this.bairroservice.findByCidade(cidade).subscribe(c => this.bairros = c);
