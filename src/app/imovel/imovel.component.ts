@@ -3,11 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Cliente } from '../cliente/cliente';
 import { ClienteService } from '../cliente/cliente.service';
 import { Message } from 'primeng/api';
-import { ConfirmationService } from 'primeng/api';
-
-
-import { DataTable } from 'primeng/components/datatable/datatable';
-
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 
 import { FormGroup } from '@angular/forms';
 
@@ -18,7 +14,9 @@ import { ImovelService } from './imovel.service';
 import { Bairro } from '../bairro/bairro';
 import { BairroService } from '../bairro/bairro.service';
 import { TestBed } from '@angular/core/testing';
+
 import { environment } from '../../environments/environment';
+import { DataTable } from 'primeng/components/datatable/datatable';
 
 
 @Component({
@@ -27,7 +25,7 @@ import { environment } from '../../environments/environment';
 })
 export class ImovelComponent implements OnInit {
 
-  
+  @ViewChild('dt') dataTable: DataTable;
 
   imovels: Imovel[];
   latitude: number;
@@ -89,7 +87,6 @@ export class ImovelComponent implements OnInit {
     this.imovelService.findAll().subscribe(e => {
       this.imovels = e;
     });
-
 
     // Método utilizado no upload de arquivos
     onUpload(event) {
