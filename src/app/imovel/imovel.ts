@@ -36,4 +36,5 @@ export class Imovel {
   
   bairro: Bairro;
   
+  imagem: string;
 }

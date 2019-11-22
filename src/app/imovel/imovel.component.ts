@@ -27,7 +27,7 @@ import { environment } from '../../environments/environment';
 })
 export class ImovelComponent implements OnInit {
 
-  @ViewChild('dt') dataTable: DataTable;
+  
 
   imovels: Imovel[];
   latitude: number;
