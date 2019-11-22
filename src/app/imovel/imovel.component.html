@@ -167,36 +167,32 @@
     </div>
   </div>
 
-  <div class="container">
-    <div class="col-md-6">
-      <div class="row">
-        <h4>Inserir imagens</h4>
-        <table class="table table-bordered">
-          <tr>
-            <td><input type="file" class="custom-file-input" file-model="file"></td>
 
-          </tr>
-          <tr>
-            <td><button ng-click="upload()">Upload</button></td>
-          </tr>
-        </table>
-      </div>
-      <div class="row">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Nome Arquivo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="doc in docList">
-              <td><a href="/doc/"></a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+  <div class="row">
+    <div class="ui-g-12 ui-fluid">
+      <label for="imagem">Imagem</label>
+      <p-fileUpload chooseLabel="Selecionar..." cancelLabel="Cancelar" name="imagem"
+        url="{{urlApi}}/imovel/upload/{{imovelEdit.id}}" (onUpload)="onUpload($event)" accept=".jpg"
+        maxFileSize="1000000">
+        <ng-template pTemplate="content">
+          <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">
+              {{file.name}} - {{file.size}} bytes
+            </li>
+          </ul>
+        </ng-template>
+      </p-fileUpload>
+    </div>
+    <div class="ui-g-12 ui-fluid" *ngIf="imovelEdit.imagem">
+      <label for="imagemAtual">Imagem atual:</label>
+      <br />
+      <img alt="Nenhuma imagem cadastrada!" src="{{urlApi}}/images/{{imovelEdit.imagem}}?{{today}}" width="100"
+        height="150">
     </div>
   </div>
+
+
 
 
   <!--

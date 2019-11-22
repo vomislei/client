@@ -12,6 +12,7 @@ import {ConfirmationService} from 'primeng/api';
 import {GrowlModule} from 'primeng/growl';
 import {DropdownModule} from 'primeng/dropdown';      
 import {RadioButtonModule} from 'primeng/radiobutton';   
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 	ConfirmDialogModule,
   GrowlModule,
   RadioButtonModule,
-  DropdownModule
+  DropdownModule,
+  InputTextareaModule
   ],
   declarations: [
     ClienteComponent

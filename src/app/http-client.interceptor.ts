@@ -22,12 +22,9 @@ export class HttpClientInterceptor implements HttpInterceptor {
         .do(() => {
         }, err => {
           if (err.status === 401) {
-            // this.router.navigate(['/login']);
           }
         });
     }
-
     return next.handle(req);
   }
-
 }

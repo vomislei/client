@@ -2,17 +2,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Cliente } from '../cliente/cliente';
 import { ClienteService } from '../cliente/cliente.service';
-//import {google} from '@types/googlemaps';
 import { Message } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
-import { ReactiveFormsModule } from '@angular/forms';
 
 
-//imagem
-/*import { ElementRef } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload';
-*/
+import { DataTable } from 'primeng/components/datatable/datatable';
+
+
 import { FormGroup } from '@angular/forms';
 
 import { Cidade } from '../cidade/cidade';
@@ -22,6 +18,7 @@ import { ImovelService } from './imovel.service';
 import { Bairro } from '../bairro/bairro';
 import { BairroService } from '../bairro/bairro.service';
 import { TestBed } from '@angular/core/testing';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -29,12 +26,9 @@ import { TestBed } from '@angular/core/testing';
   styleUrls: ['./imovel.component.css']
 })
 export class ImovelComponent implements OnInit {
-/*
-  //imagem
-  @ViewChild('fileInput') fileInput: ElementRef;
-  uploader: FileUploader;
-  isDropOver: boolean;
-*/
+
+  @ViewChild('dt') dataTable: DataTable;
+
   imovels: Imovel[];
   latitude: number;
   longitude: number;
@@ -57,6 +51,11 @@ export class ImovelComponent implements OnInit {
 
   isDisabledVenda = true;
   isDisabledLoca = true;
+
+  // atributos utilizados para o upload
+  uploadedFiles: any[] = [];
+  urlApi: string = environment.api;
+  today: number = Date.now();
 
   makeRandomDataProvider() {
     const dataProvider = [];
@@ -91,13 +90,24 @@ export class ImovelComponent implements OnInit {
       this.imovels = e;
     });
 
-/*
-    //imagem
-    const headers = [{ name: 'Accept', value: 'application/json' }];
-    this.uploader = new FileUploader({ url: 'api/files', autoUpload: true, headers: headers });
 
-    this.uploader.onCompleteAll = () => alert('File uploaded');
-*/
+    // Método utilizado no upload de arquivos
+    onUpload(event) {
+      for (const file of event.files) {
+        this.uploadedFiles.push(file);
+      }
+
+      this.msgs = [{
+        severity: 'info', summary: 'Arquivo salvo',
+        detail: 'Arquivo salvo com sucesso!'
+      }];
+      setTimeout(() => {
+        this.dataTable.reset();
+        this.showDialog = false;
+        this.uploadedFiles = [];
+      }, 500);
+    }
+
     // Testando o Google Maps
     const mapProp = {
       center: new google.maps.LatLng(-26.201377098618924, -52.691727236269685),
@@ -108,8 +118,13 @@ export class ImovelComponent implements OnInit {
 
 
     // this.map.addListener('click', this.showPositionClick);
-    this.map.addListener('click', this.showPositionClick);
-    
+    // this.map.addListener('click', this.showPositionClick);
+
+    this.map.addListener('click', (position) => {
+      this.imovelEdit.latitude = position.latLng.lat();
+      this.imovelEdit.longitude = position.latLng.lng();
+    });
+
     let location = new google.maps.LatLng(-26.201377098618924, -52.691727236269685);
     this.map.panTo(location);
 
@@ -123,22 +138,22 @@ export class ImovelComponent implements OnInit {
     else {
       this.marker.setPosition(location);
     }
-    
+
     this.clienteService.findAll().subscribe(e => this.clientes = e);
     this.cidadeService.findAll().subscribe(e => this.cidades = e);
 
   }
 
-/*
-  //imagem
-  fileOverAnother(e: any): void {
-    this.isDropOver = e;
-  }
-
-  fileClicked() {
-    this.fileInput.nativeElement.click();
-  }
-*/
+  /*
+    //imagem
+    fileOverAnother(e: any): void {
+      this.isDropOver = e;
+    }
+  
+    fileClicked() {
+      this.fileInput.nativeElement.click();
+    }
+  */
 
   buscaBairros(cidade): void {
     this.bairroservice.findByCidade(cidade).subscribe(c => this.bairros = c);
@@ -173,8 +188,6 @@ export class ImovelComponent implements OnInit {
   }
 
   salvar() {
-    this.imovelEdit.latitude = this.latitude;
-    this.imovelEdit.longitude = this.longitude;
     this.imovelService.save(this.imovelEdit).subscribe(e => {
       this.imovelEdit = new Imovel();
       this.imovelEdit.bairro = new Bairro();
@@ -259,7 +272,7 @@ export class ImovelComponent implements OnInit {
     }
   }
 
-//esse está sendo usado
+  //esse está sendo usado
   showPositionClick(position) {
     console.log("position.latLng.lat() " + position.latLng.lat());
     console.log("position.latLng.lng() " + position.latLng.lng());
@@ -268,8 +281,8 @@ export class ImovelComponent implements OnInit {
     this.currentLat = position.latLng.lat();
     this.currentLong = position.latLng.lng();
     console.log("this.currentLong " + this.currentLong);
-    
-    this.longitude =  this.currentLong;
+
+    this.longitude = this.currentLong;
     console.log("this.longitude " + this.longitude);
 
     this.imovelEdit.longitude = this.currentLong;
@@ -292,18 +305,18 @@ export class ImovelComponent implements OnInit {
     }
     this.showDialog = true;
   }
-/*
-  showPositionClick2(location) {
-    console.log("Position do click= " + location.latLng);
-    // this.showPosition()
-    this.marker = new google.maps.Marker({
-      position: location.latLng,
-      map: this.map,
-      title: 'TEEEEEEEEEEEEESTE!'
-    });
-    this.marker.setPosition(location.latLng);
-  }
-*/
+  /*
+    showPositionClick2(location) {
+      console.log("Position do click= " + location.latLng);
+      // this.showPosition()
+      this.marker = new google.maps.Marker({
+        position: location.latLng,
+        map: this.map,
+        title: 'TEEEEEEEEEEEEESTE!'
+      });
+      this.marker.setPosition(location.latLng);
+    }
+  */
   //evento do botao localizacao atual
   showPosition(position) {
     console.log("Position= " + position.coords.latitude);
@@ -325,35 +338,35 @@ export class ImovelComponent implements OnInit {
       this.marker.setPosition(location);
     }
   }
-/*
-  trackMe() {
-    if (navigator.geolocation) {
-      this.isTracking = true;
-      navigator.geolocation.watchPosition((position) => {
-        this.showTrackingPosition(position);
-      });
-    } else {
-      alert("Geolocation is not supported by this browser.");
+  /*
+    trackMe() {
+      if (navigator.geolocation) {
+        this.isTracking = true;
+        navigator.geolocation.watchPosition((position) => {
+          this.showTrackingPosition(position);
+        });
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
     }
-  }
-
-  showTrackingPosition(position) {
-    console.log(`tracking postion:  ${position.coords.latitude} - ${position.coords.longitude}`);
-    this.currentLat = position.coords.latitude;
-    this.currentLong = position.coords.longitude;
-
-    let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    this.map.panTo(location);
-
-    if (!this.marker) {
-      this.marker = new google.maps.Marker({
-        position: location,
-        map: this.map,
-        title: 'Got you!'
-      });
-    }
-    else {
-      this.marker.setPosition(location);
-    }
-  }*/
+  
+    showTrackingPosition(position) {
+      console.log(`tracking postion:  ${position.coords.latitude} - ${position.coords.longitude}`);
+      this.currentLat = position.coords.latitude;
+      this.currentLong = position.coords.longitude;
+  
+      let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      this.map.panTo(location);
+  
+      if (!this.marker) {
+        this.marker = new google.maps.Marker({
+          position: location,
+          map: this.map,
+          title: 'Got you!'
+        });
+      }
+      else {
+        this.marker.setPosition(location);
+      }
+    }*/
 }

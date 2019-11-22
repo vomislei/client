@@ -121,8 +121,10 @@
 		<div class="col-sm-12">
 			<div class="col-sm-12">
 				<label for="interesses">Interesses</label>
-				<input type="text" id="interesses" name="interesses" class="form-control"
-					[(ngModel)]="clienteEdit.interesses">
+				
+				<textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" type="text" id="interesses" name="interesses" class="form-control"
+				[(ngModel)]="clienteEdit.interesses"></textarea>
+				
 			</div>
 		</div>
 	</div>

@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
-import {Subject} from 'rxjs/Subject';
-import {AccessToken} from './access.token';
-import {environment} from '../../environments/environment';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { Subject } from 'rxjs/Subject';
+import { AccessToken } from './access.token';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class LoginService implements CanActivate {
@@ -32,7 +32,6 @@ export class LoginService implements CanActivate {
 
   getUserInfo(): any {
     return this.userInfo;
-    //	console.log('username ll', username);
   }
 
   hasRole(role: string): boolean {
@@ -55,10 +54,6 @@ export class LoginService implements CanActivate {
     params.append('username', username);
     params.append('password', password);
     params.append('grant_type', 'password');
-   // loginService.getUserInfo()
-		//	.then(response => {
-			//	console.log('username l', username); // "org_admin"
-		//	})
     const headers = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded',
       'Authorization': 'Basic ' + btoa(`app:appsecret`)
@@ -71,5 +66,4 @@ export class LoginService implements CanActivate {
         return e;
       });
   }
-
 }
