@@ -168,7 +168,7 @@
       <label for="imagem">Imagem</label>
       <p-fileUpload chooseLabel="Selecionar..." cancelLabel="Cancelar" name="imagem"
         url="{{urlApi}}/imovel/upload/{{imovelEdit.id}}" (onUpload)="onUpload($event)" accept=".jpg"
-        maxFileSize="1000000" multiple="multiple">
+        maxFileSize="1000000">
         <ng-template pTemplate="content">
           <ul *ngIf="uploadedFiles.length">
             <li *ngFor="let file of uploadedFiles">

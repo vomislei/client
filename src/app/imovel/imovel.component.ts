@@ -55,6 +55,7 @@ export class ImovelComponent implements OnInit {
   urlApi: string = environment.api;
   today: number = Date.now();
 
+
   makeRandomDataProvider() {
     const dataProvider = [];
 
@@ -89,7 +90,7 @@ export class ImovelComponent implements OnInit {
     });
 
     // Método utilizado no upload de arquivos
-      onUpload(event) {
+    onUpload(file) {
       for (const file of event.files) {
         this.uploadedFiles.push(file);
       }
@@ -256,21 +257,9 @@ export class ImovelComponent implements OnInit {
 
   //esse está sendo usado
   showPositionClick(position) {
-    console.log("position.latLng.lat() " + position.latLng.lat());
-    console.log("position.latLng.lng() " + position.latLng.lng());
-
-
     this.currentLat = position.latLng.lat();
     this.currentLong = position.latLng.lng();
-    console.log("this.currentLong " + this.currentLong);
-
-    this.longitude = this.currentLong;
-    console.log("this.longitude " + this.longitude);
-
-    this.imovelEdit.longitude = this.currentLong;
-    console.log("this.imovelEdit.longitude " + this.imovelEdit.longitude);
-
-
+    
     let location = new google.maps.LatLng(position.latLng.lat(), position.latLng.lng());
     //this.map.panTo(location);
 
@@ -287,18 +276,7 @@ export class ImovelComponent implements OnInit {
     }
     this.showDialog = true;
   }
-  /*
-    showPositionClick2(location) {
-      console.log("Position do click= " + location.latLng);
-      // this.showPosition()
-      this.marker = new google.maps.Marker({
-        position: location.latLng,
-        map: this.map,
-        title: 'TEEEEEEEEEEEEESTE!'
-      });
-      this.marker.setPosition(location.latLng);
-    }
-  */
+ 
   //evento do botao localizacao atual
   showPosition(position) {
     console.log("Position= " + position.coords.latitude);
@@ -320,35 +298,4 @@ export class ImovelComponent implements OnInit {
       this.marker.setPosition(location);
     }
   }
-  /*
-    trackMe() {
-      if (navigator.geolocation) {
-        this.isTracking = true;
-        navigator.geolocation.watchPosition((position) => {
-          this.showTrackingPosition(position);
-        });
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    }
-  
-    showTrackingPosition(position) {
-      console.log(`tracking postion:  ${position.coords.latitude} - ${position.coords.longitude}`);
-      this.currentLat = position.coords.latitude;
-      this.currentLong = position.coords.longitude;
-  
-      let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      this.map.panTo(location);
-  
-      if (!this.marker) {
-        this.marker = new google.maps.Marker({
-          position: location,
-          map: this.map,
-          title: 'Got you!'
-        });
-      }
-      else {
-        this.marker.setPosition(location);
-      }
-    }*/
 }
